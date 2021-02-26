@@ -13,6 +13,7 @@ export default defineConfig({
   },
   routes: [
     { path: '/', redirect: '/task' },
+    { path: '/callback', redirect: '/task' },
     {
       path: '/task',
       name: '任务管理',
