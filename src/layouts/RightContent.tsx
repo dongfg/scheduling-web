@@ -15,7 +15,7 @@ const RightContent: React.FC<any> = () => {
         }}
       >
         <LogoutOutlined />
-        退出登陆
+        退出登录
       </Menu.Item>
     </Menu>
   );

@@ -1,8 +1,30 @@
+import { RequestConfig } from 'umi';
 import { BasicLayoutProps } from '@ant-design/pro-layout';
 import { DefaultFooter } from '@ant-design/pro-layout';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { getAccessToken } from '@/utils/auth';
 import Auth0Wrapper from '@/layouts/Auth0Wrapper';
 import RightContent from '@/layouts/RightContent';
+
+// @umijs/plugin-request
+export const request: RequestConfig = {
+  prefix: process.env.API_HOST,
+  requestInterceptors: [
+    (url, options) => {
+      const token = getAccessToken();
+      return {
+        url,
+        options: {
+          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: `${token}`,
+          },
+        },
+      };
+    },
+  ],
+};
 
 export const layout: BasicLayoutProps = {
   fixSiderbar: true,

@@ -17,7 +17,7 @@ export default defineConfig({
     {
       path: '/task',
       name: '任务管理',
-      component: '@/pages/index',
+      component: '@/pages/task',
       icon: 'ProfileOutlined',
     },
     {
