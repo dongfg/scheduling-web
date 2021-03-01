@@ -11,7 +11,7 @@ export default defineConfig({
   locale: {
     baseNavigator: false,
   },
-  history: { type: 'hash' },
+  exportStatic: {},
   routes: [
     { path: '/', redirect: '/task' },
     { path: '/callback', redirect: '/task' },
