@@ -9,6 +9,8 @@
 
 # production
 /dist
+/deploy/dist
+/deploy/bootstrap
 
 # misc
 .DS_Store
