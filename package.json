@@ -20,6 +20,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/pro-descriptions": "^1.6.3",
     "@ant-design/pro-layout": "^6.14.4",
     "@ant-design/pro-table": "^2.30.2",
     "@auth0/auth0-react": "^1.3.0",
