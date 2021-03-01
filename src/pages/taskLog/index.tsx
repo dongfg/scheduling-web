@@ -1,22 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { request } from 'umi';
 import { ProCoreActionType } from '@ant-design/pro-utils';
 import { PageContainer } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, TableDropdown } from '@ant-design/pro-table';
-import ProDescriptions from '@ant-design/pro-descriptions';
-import { Button, Modal, Divider, message } from 'antd';
-import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { ScheduleTaskLog } from '../typing';
-
-const requestRowRender = (record: ScheduleTaskLog) => {
-  return <>TODO</>;
-};
 
 export default () => {
   const ref = useRef<ProCoreActionType>();
 
   const columns: ProColumns<ScheduleTaskLog>[] = [
     {
+      hideInTable: true,
       title: '任务',
       dataIndex: 'taskId',
       valueType: 'select',
