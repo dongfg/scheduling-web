@@ -20,3 +20,16 @@ export interface HttpRequest {
   parameters: any;
   body: string;
 }
+
+export interface ScheduleTaskLog {
+  id?: number;
+  taskId: number;
+  name: string;
+  timeCost: number;
+  httpRequest: string;
+  responseStatus?: string;
+  responseHeaders?: string;
+  responseBody?: string;
+  errorMessage?: string;
+  createTime: string;
+}

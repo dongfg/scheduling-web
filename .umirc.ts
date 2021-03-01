@@ -23,7 +23,7 @@ export default defineConfig({
     {
       path: '/taskLog',
       name: '任务日志',
-      component: '@/pages/index',
+      component: '@/pages/taskLog',
       icon: 'RobotOutlined',
     },
   ],
