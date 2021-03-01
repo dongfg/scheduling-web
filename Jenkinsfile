@@ -36,7 +36,7 @@ pipeline {
       steps {
         script {
           try {
-            withCredentials([usernamePassword(credentialsId: 'fc5871ba-5c4b-4b91-97e4-32328fba7d6e', usernameVariable: 'ACCESS_KEY_ID', passwordVariable: 'ACCESS_KEY_SECRET')]) {
+            withCredentials([usernamePassword(credentialsId: '6384c2ec-5a4d-4b6c-ad57-992dc5a88842', usernameVariable: 'ACCESS_KEY_ID', passwordVariable: 'ACCESS_KEY_SECRET')]) {
               sh "curl -o fun-linux.zip http://funcruft-release.oss-accelerate.aliyuncs.com/fun/fun-v3.6.21-linux.zip"
               sh "unzip fun-linux.zip"
               sh "mv fun-v3.6.21-linux /usr/local/bin/fun"
