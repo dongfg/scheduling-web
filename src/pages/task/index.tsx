@@ -73,7 +73,7 @@ export default () => {
                 if (res.success) {
                   ref.current?.reload();
                 } else {
-                  message.error(res.msg);
+                  message.error(res.errorMessage);
                 }
               } catch (error) {
                 message.error(error);
@@ -81,9 +81,29 @@ export default () => {
             },
             onCancel() {},
           });
+        } else if (key === 'trigger') {
+          try {
+            const res = await request('/trigger', {
+              skipErrorHandler: true,
+              method: 'get',
+              params: {
+                id: row.id,
+              },
+            });
+            if (res.success) {
+              ref.current?.reload();
+            } else {
+              message.error(res.errorMessage);
+            }
+          } catch (error) {
+            message.error(error);
+          }
         }
       }}
-      menus={[{ key: 'delete', name: '删除' }]}
+      menus={[
+        { key: 'trigger', name: '执行' },
+        { key: 'delete', name: '删除' },
+      ]}
     />
   );
 
@@ -139,7 +159,7 @@ export default () => {
                     if (res.success) {
                       ref.current?.reload();
                     } else {
-                      message.error(res.msg);
+                      message.error(res.errorMessage);
                     }
                   } catch (error) {
                     message.error(error);
