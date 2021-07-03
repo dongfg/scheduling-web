@@ -24,7 +24,7 @@ pipeline {
             npm install
             npm run build
             mv dist .deploy/
-            go build -o .deploy/bootstrap .deploy/
+            go build -o .deploy/bootstrap .deploy/main.go
             '''
         }
       }
