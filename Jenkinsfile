@@ -23,8 +23,18 @@ pipeline {
             sh '''
             npm install
             npm run build
-            mv dist deploy/
-            go build -o ./deploy/bootstrap ./deploy
+            mv dist .deploy/
+            go build -o .deploy/bootstrap .deploy/
+            '''
+        }
+      }
+    }
+    stage('下载证书') {
+      steps {
+        script {
+            sh '''
+              curl -fL "https://dongfg-generic.pkg.coding.net/serverless-aliyun/secrets/ssl.fun.key?version=latest" -o ./.deploy/ssl.private.pem
+              curl -fL "https://dongfg-generic.pkg.coding.net/serverless-aliyun/secrets/ssl.fun.cer?version=latest" -o ./.deploy/ssl.cert.pem
             '''
         }
       }
@@ -40,7 +50,7 @@ pipeline {
               sh "curl -o fun-linux.zip http://funcruft-release.oss-accelerate.aliyuncs.com/fun/fun-v3.6.21-linux.zip"
               sh "unzip fun-linux.zip"
               sh "mv fun-v3.6.21-linux /usr/local/bin/fun"
-              sh "cd ./deploy && fun deploy -y"
+              sh "cd .deploy/ && fun deploy -y"
             }
           } catch(err) {
             echo err.getMessage()

@@ -17,12 +17,12 @@ Resources:
           Properties:
             AuthType: ANONYMOUS
             Methods: ['GET']
-  task.dongfg.com:
+  task.fun.dongfg.com:
     Type: 'Aliyun::Serverless::CustomDomain'
     Properties:
       Protocol: HTTP,HTTPS
       CertConfig:
-        CertName: 'task_dongfg_com'
+        CertName: 'task_fun_dongfg_com'
         PrivateKey: './ssl.private.pem'
         Certificate: './ssl.cert.pem'
       RouteConfig:
