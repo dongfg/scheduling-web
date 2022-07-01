@@ -76,7 +76,9 @@ export default () => {
                   message.error(res.errorMessage);
                 }
               } catch (error) {
-                message.error(error);
+                message.error(
+                  error instanceof Error ? error.message : String(error),
+                );
               }
             },
             onCancel() {},
@@ -96,7 +98,9 @@ export default () => {
               message.error(res.errorMessage);
             }
           } catch (error) {
-            message.error(error);
+            message.error(
+              error instanceof Error ? error.message : String(error),
+            );
           }
         }
       }}
@@ -162,7 +166,9 @@ export default () => {
                       message.error(res.errorMessage);
                     }
                   } catch (error) {
-                    message.error(error);
+                    message.error(
+                      error instanceof Error ? error.message : String(error),
+                    );
                   }
                 }}
               >
