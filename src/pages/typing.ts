@@ -1,6 +1,7 @@
 export interface ScheduleTask {
   id?: number;
   name: string;
+  group: string;
   status: string;
   cron: string;
   startTime: string;

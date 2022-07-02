@@ -34,6 +34,11 @@ export default () => {
       },
     },
     {
+      title: '分组',
+      dataIndex: 'group',
+      search: false,
+    },
+    {
       title: '名称',
       dataIndex: 'name',
       search: false,
@@ -70,6 +75,9 @@ export default () => {
           columns={columns}
           request={(params) => request('/log', { params: { ...params } })}
           rowKey="id"
+          search={{
+            filterType: 'light',
+          }}
           dateFormatter="string"
           headerTitle="任务日志列表"
           actionRef={ref}
