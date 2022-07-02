@@ -133,7 +133,6 @@ export default ({
             message.error(msg);
           }
         }}
-        onValuesChange={(values) => {}}
       >
         <Row gutter={16}>
           <Col span={12}>
@@ -146,6 +145,13 @@ export default ({
             </Form.Item>
           </Col>
           <Col span={12}>
+            <Form.Item name="group" label="任务分组">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={18}>
             <Form.Item
               name="cron"
               label="执行频率(CRON)"

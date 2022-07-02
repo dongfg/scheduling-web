@@ -113,34 +113,45 @@ export default () => {
 
   const columns: ProColumns<ScheduleTask>[] = [
     {
+      title: '分组',
+      dataIndex: 'group',
+    },
+    {
       title: '名称',
       dataIndex: 'name',
     },
     {
+      hideInSearch: true,
       title: '状态',
       dataIndex: 'status',
     },
     {
+      hideInSearch: true,
       title: '执行频率',
       dataIndex: 'cron',
     },
     {
+      hideInSearch: true,
       title: '请求方法',
       dataIndex: 'httpMethod',
     },
     {
+      hideInSearch: true,
       title: '请求地址',
       dataIndex: 'httpURL',
     },
     {
+      hideInSearch: true,
       title: '开始时间',
       dataIndex: 'startTime',
     },
     {
+      hideInSearch: true,
       title: '结束时间',
       dataIndex: 'endTime',
     },
     {
+      hideInSearch: true,
       title: '操作',
       render: (_, row) => (
         <>
@@ -204,7 +215,9 @@ export default () => {
           columns={columns}
           request={(params) => request('/', { params: { ...params } })}
           rowKey="id"
-          search={false}
+          search={{
+            filterType: 'light',
+          }}
           dateFormatter="string"
           headerTitle="任务列表"
           actionRef={ref}
