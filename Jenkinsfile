@@ -41,7 +41,7 @@ pipeline {
     }
     stage('部署') {
       when {
-        buildingTag()
+        branch 'master'
       }
       steps {
         script {
