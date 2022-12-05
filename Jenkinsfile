@@ -32,6 +32,7 @@ pipeline {
         }
       }
       steps {
+        sh 'rm -rf ./dist'
         sh 'yarn'
         sh 'yarn build'
       }
@@ -53,7 +54,7 @@ pipeline {
         script {
           withCredentials([usernamePassword(credentialsId: '96ac0d91-9a7b-4aab-aff7-36b7e80dbf7c', usernameVariable: 'USER', passwordVariable: 'ACCESS_TOKEN')]) {
             sh """
-              cd static
+              cd dist
               echo "scheduling.dongfg.com" > CNAME
               git init
               git config --local user.name dongfg
