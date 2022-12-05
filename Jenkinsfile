@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    ACCOUNT_ID = '1607652824904310'
-    REGION    = 'cn-hangzhou'
+    DOCKER_CACHE_NAME = '/root/.cache/docker/node-16.tar'
+    DOCKER_CACHE_EXISTS = fileExists "${DOCKER_CACHE_NAME}"
   }
   stages {
     stage("检出代码") {
@@ -17,43 +17,53 @@ pipeline {
       }
     }
 
+    stage('加载缓存') {
+      when { expression { DOCKER_CACHE_EXISTS == 'true' } }
+      steps {
+        sh "docker load -i ${DOCKER_CACHE_NAME}"
+      }
+    }
+
     stage('构建') {
-      steps {
-        script {
-            sh '''
-            npm install
-            npm run build
-            mv dist .deploy/
-            go build -o .deploy/bootstrap .deploy/main.go
-            '''
+      agent {
+        docker {
+          image 'node:16'
+          reuseNode true
         }
       }
-    }
-    stage('下载证书') {
       steps {
-        script {
-            sh '''
-              curl -fL "https://dongfg-generic.pkg.coding.net/serverless-aliyun/secrets/ssl.fun.key?version=latest" -o ./.deploy/ssl.private.pem
-              curl -fL "https://dongfg-generic.pkg.coding.net/serverless-aliyun/secrets/ssl.fun.cer?version=latest" -o ./.deploy/ssl.cert.pem
-            '''
-        }
+        sh 'yarn'
+        sh 'yarn build'
       }
     }
+
+    stage('生成缓存') {
+      when { expression { DOCKER_CACHE_EXISTS == 'false' } }
+      steps {
+        sh 'mkdir -p /root/.cache/docker/'
+        sh "docker save -o ${DOCKER_CACHE_NAME} node:16"
+      }
+    }
+
     stage('部署') {
       when {
-        branch 'master'
+        buildingTag()
       }
       steps {
         script {
-          try {
-            withCredentials([usernamePassword(credentialsId: '6384c2ec-5a4d-4b6c-ad57-992dc5a88842', usernameVariable: 'ACCESS_KEY_ID', passwordVariable: 'ACCESS_KEY_SECRET')]) {
-              sh "curl -o fun-linux.zip http://funcruft-release.oss-accelerate.aliyuncs.com/fun/fun-v3.6.21-linux.zip"
-              sh "unzip fun-linux.zip"
-              sh "mv fun-v3.6.21-linux /usr/local/bin/fun"
-              sh "cd .deploy/ && fun deploy -y"
-            }
-          } catch(err) {
-            echo err.getMessage()
+          withCredentials([usernamePassword(credentialsId: 'fa9ddf3e-8048-498b-9e36-9303fe649dba', usernameVariable: 'USER', passwordVariable: 'ACCESS_TOKEN')]) {
+            sh """
+              cd static
+              echo "scheduling.dongfg.com" > CNAME
+              git init
+              git config --local user.name dongfg
+              git config --local user.email mail@dongfg.com
+              git remote add origin https://${ACCESS_TOKEN}@github.com/dongfg/scheduling-web.git
+              git checkout -b gh-pages
+              git add --all
+              git commit -m "deploy gh-pages"
+              git push origin gh-pages -f
+            """
           }
         }
       }
