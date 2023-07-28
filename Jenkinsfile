@@ -55,7 +55,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: '96ac0d91-9a7b-4aab-aff7-36b7e80dbf7c', usernameVariable: 'USER', passwordVariable: 'ACCESS_TOKEN')]) {
             sh """
               cd dist
-              echo "scheduling.dongfg.com" > CNAME
+              echo "scheduling.github.dongfg.com" > CNAME
               git init
               git config --local user.name dongfg
               git config --local user.email mail@dongfg.com
