@@ -1,9 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { request } from 'umi';
-import { ProCoreActionType } from '@ant-design/pro-utils';
-import { PageContainer } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, TableDropdown } from '@ant-design/pro-table';
-import ProDescriptions from '@ant-design/pro-descriptions';
+import {
+  ProCoreActionType,
+  PageContainer,
+  ProTable,
+  ProColumns,
+  TableDropdown,
+  ProDescriptions,
+} from '@ant-design/pro-components';
 import { Button, Modal, Divider, message } from 'antd';
 import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { ScheduleTask } from '../typing';
