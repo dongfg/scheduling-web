@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Dropdown, Menu } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useAuth0 } from '@auth0/auth0-react';
+import { setAccessToken } from '@/utils/auth';
 
 const RightContent: React.FC<any> = () => {
-  const { user, logout } = useAuth0();
+  const {
+    user,
+    isLoading,
+    isAuthenticated,
+    getAccessTokenSilently,
+    loginWithRedirect,
+    logout,
+  } = useAuth0();
+  useEffect(() => {
+    const getAccessToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently();
+        setAccessToken(accessToken);
+      } catch (e) {
+        loginWithRedirect();
+      }
+    };
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+      return;
+    }
+    if (isAuthenticated) {
+      getAccessToken();
+    }
+  }, [isLoading, isAuthenticated, user?.sub]);
 
   const menu = (
     <Menu className="umi-plugin-layout-menu">
       <Menu.Item
         key="logout"
         onClick={() => {
-          logout({ returnTo: window.location.origin });
+          setAccessToken('');
+          logout({ logoutParams: { returnTo: window.location.origin } });
         }}
       >
         <LogoutOutlined />

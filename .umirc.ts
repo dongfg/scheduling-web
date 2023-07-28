@@ -1,9 +1,11 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
-  nodeModulesTransform: {
-    type: 'none',
-  },
+  model: {},
+  antd: {},
+  request: {},
+  initialState: {},
+  dva: {},
   layout: {
     name: 'Scheduling',
     locale: false,
@@ -28,6 +30,6 @@ export default defineConfig({
       icon: 'RobotOutlined',
     },
   ],
-  fastRefresh: {},
+  fastRefresh: true,
   hash: true,
 });

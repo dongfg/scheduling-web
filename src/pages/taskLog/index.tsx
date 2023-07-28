@@ -1,8 +1,11 @@
 import React, { useRef } from 'react';
 import { request } from 'umi';
-import { ProCoreActionType } from '@ant-design/pro-utils';
-import { PageContainer } from '@ant-design/pro-layout';
-import ProTable, { ProColumns } from '@ant-design/pro-table';
+import {
+  ProCoreActionType,
+  PageContainer,
+  ProTable,
+  ProColumns,
+} from '@ant-design/pro-components';
 import { ScheduleTaskLog } from '../typing';
 
 export default () => {
